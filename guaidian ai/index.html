@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ResQ AI — Smart Emergency Response Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #0b1d3a;
+      color: #f4f4f4;
+    }
+    header {
+      background-color: #111c2f;
+      padding: 15px;
+      text-align: center;
+      color: #ff3b3b;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      background-color: #14294d;
+    }
+    nav a {
+      color: #fff;
+      padding: 10px 15px;
+      text-decoration: none;
+    }
+    nav a:hover {
+      background-color: #ff3b3b;
+    }
+    .container {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background-color: #1c2f50;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+    .card h2 {
+      color: #ff3b3b;
+      margin-top: 0;
+    }
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+    .stat {
+      background: #14294d;
+      padding: 10px;
+      border-radius: 6px;
+      margin: 5px;
+      flex: 1;
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    table, th, td {
+      border: 1px solid #333;
+    }
+    th, td {
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #14294d;
+    }
+    button {
+      background-color: #ff3b3b;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #d32f2f;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+      border-radius: 4px;
+      border: none;
+    }
+    .chatbox {
+      border: 1px solid #333;
+      height: 200px;
+      overflow-y: auto;
+      background-color: #14294d;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    .message {
+      margin: 5px 0;
+    }
+    .user { color: #4cafef; }
+    .bot { color: #ff3b3b; }
+    .disclaimer {
+      text-align: center;
+      font-size: 0.9em;
+      color: #ccc;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>ResQ AI — Smart Emergency Response Hub</header>
+  <nav>
+    <a href="#overview">Overview</a>
+    <a href="#incidents">Incidents</a>
+    <a href="#risk">Risk Intelligence</a>
+    <a href="#report">Report Incident</a>
+    <a href="#citizen">Citizen Reporting</a>
+    <a href="#chatbot">Crisis Guidance Chatbot</a>
+  </nav>
+
+  <div class="container">
+    <!-- Overview -->
+    <div class="card" id="overview">
+      <h2>Dashboard Overview</h2>
+      <div class="stats">
+        <div class="stat" id="totalIncidents">Total Incidents: 3</div>
+        <div class="stat" id="criticalIncidents">Critical: 1</div>
+        <div class="stat" id="respondersAvailable">Responders Available: 5</div>
+        <div class="stat" id="resolvedIncidents">Resolved: 1</div>
+      </div>
+    </div>
+
+    <!-- Incident Monitoring -->
+    <div class="card" id="incidents">
+      <h2>Incident Monitoring</h2>
+      <input type="text" id="searchInput" placeholder="Search by type or status">
+      <table id="incidentTable">
+        <thead>
+          <tr>
+            <th>Type</th><th>Location</th><th>Severity</th><th>Status</th><th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Fire</td><td>Zone A</td><td>Critical</td><td>Pending</td>
+            <td><button onclick="assignResponder(this)">Assign Responder</button></td>
+          </tr>
+          <tr>
+            <td>Flood</td><td>Zone B</td><td>High</td><td>Resolved</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>Accident</td><td>Highway 21</td><td>Medium</td><td>Pending</td>
+            <td><button onclick="assignResponder(this)">Assign Responder</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Risk Intelligence -->
+    <div class="card" id="risk">
+      <h2>Risk Intelligence (Simulated)</h2>
+      <p>Weather Risk: <strong>Moderate Storm Risk</strong></p>
+      <p>Traffic Risk: <strong>High Congestion</strong></p>
+      <p>Disaster Risk: <strong>Low Earthquake Probability</strong></p>
+    </div>
+
+    <!-- Emergency Reporting -->
+    <div class="card" id="report">
+      <h2>Emergency Reporting Form</h2>
+      <form id="reportForm">
+        <label>Incident Type:</label>
+        <input type="text" id="incidentType" required>
+        <label>Location:</label>
+        <input type="text" id="incidentLocation" required>
+        <label>Description:</label>
+        <textarea id="incidentDescription" required></textarea>
+        <label>Severity:</label>
+        <select id="incidentSeverity">
+          <option>Low</option><option>Medium</option><option>High</option><option>Critical</option>
+        </select>
+        <button type="submit">Submit Incident</button>
+      </form>
+      <p id="formMessage"></p>
+    </div>
+
+    <!-- Citizen Reporting -->
+    <div class="card" id="citizen">
+      <h2>Citizen Emergency Reporting</h2>
+      <form id="citizenForm">
+        <label>Incident Type:</label>
+        <input type="text" id="citizenType" required>
+        <label>Location:</label>
+        <input type="text" id="citizenLocation" required>
+        <label>Description:</label>
+        <textarea id="citizenDescription" required></textarea>
+        <button type="submit">Report</button>
+      </form>
+      <p id="citizenMessage"></p>
+    </div>
+
+    <!-- Chatbot -->
+    <div class="card" id="chatbot">
+      <h2>Crisis Guidance Chatbot</h2>
+      <div class="chatbox" id="chatbox"></div>
+      <input type="text" id="chatInput" placeholder="Type your message">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    ⚠️ This is a prototype demo. It uses simulated data and is not connected to real emergency services.  
+    Always contact local emergency services in case of immediate danger.
+  </div>
+
+  <script>
+    // Assign responder
+    function assignResponder(btn) {
+      const row = btn.closest("tr");
+      row.cells[3].innerText = "Responder Assigned";
+      btn.remove();
+      updateStats();
+    }
+
+    // Update stats dynamically
+    function updateStats() {
+      const rows = document.querySelectorAll("#incidentTable tbody tr");
+      let total = rows.length;
+      let critical = 0;
+      let resolved = 0;
+      rows.forEach(r => {
+        if (r.cells[2].innerText === "Critical") critical++;
+        if (r.cells[3].innerText.includes("Resolved")) resolved++;
+      });
+      document.getElementById("totalIncidents").innerText = "Total Incidents: " + total;
+      document.getElementById("criticalIncidents").innerText = "Critical: " + critical;
+      document.getElementById("resolvedIncidents").innerText = "Resolved: " + resolved;
+    }
+
+    // Incident reporting form
+    document.getElement
+   
